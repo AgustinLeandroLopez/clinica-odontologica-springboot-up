@@ -1,7 +1,7 @@
 ## 🦷 Clínica Odontológica – Trabajo Práctico (UP)
 
-> Proyecto académico desarrollado en Java como parte de la materia **Microservicios y APIs / Universidad de Palermo**.
-> Implementa una arquitectura DAO con persistencia en base de datos **H2**, **test unitarios** y una arquitectura monolítica moderna en **Spring Boot 3.5.2** y **Java 21** 
+> Proyecto académico desarrollado en Java como parte de la materia **Microservicios y APIs (UP)**.
+> Implementa una arquitectura **DAO** con persistencia en base de datos **H2**, **test unitarios** y una arquitectura monolítica moderna en **Spring Boot 3.5.2** y **Java 21**. 
 > Transitando conscientemente por decisiones iniciales (como el patrón **DAO** acoplado) para luego refactorizar a **MVC**, incorporar **ORM** con **Hibernate** y **Spring Data**, diseñar **DTOs**, manejar errores de forma global y, finalmente, presentar y “lanzar” el producto en un entorno simulado de cliente. 
 
 ---
