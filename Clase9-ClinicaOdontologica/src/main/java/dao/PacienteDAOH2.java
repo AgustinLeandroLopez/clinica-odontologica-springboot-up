@@ -1,7 +1,7 @@
 package dao;
 
-import model.Domicilio;
-import model.Paciente;
+import entity.Domicilio;
+import entity.Paciente;
 
 import java.sql.*;
 import java.util.ArrayList;

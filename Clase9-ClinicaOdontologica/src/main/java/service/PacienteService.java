@@ -1,33 +1,55 @@
 package service;
 
 import dao.iDao;
-import model.Paciente;
+import entity.Paciente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import repository.PacienteRepository;
 
 import java.util.List;
 
+@Service
 public class PacienteService {
-    private iDao<Paciente> pacienteiDao;
 
-    public PacienteService(iDao<Paciente> pacienteiDao) {
-        this.pacienteiDao = pacienteiDao;
-    }
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
 
     public Paciente guardarPaciente(Paciente paciente){
-        return pacienteiDao.guardar(paciente);
+
+        return pacienteRepository.save(paciente);
     }
     public Paciente buscarPacientePorId(Integer id){
-        return pacienteiDao.buscar(id);
+
+        return pacienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado con id: " + id));
     }
 
     public List<Paciente> buscarPacientes(){
-        return pacienteiDao.buscarTodos();
+
+        return pacienteRepository.findAll();
     }
 
     public void actualizarPaciente(Paciente paciente){
-        pacienteiDao.actualizar(paciente);
+
+        // Buscar el paciente existente
+        Paciente pacienteBuscar = pacienteRepository.findById(paciente.getId())
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado con id: " + paciente.getId()));
+
+
+        // Actualizar solo los campos permitidos
+        paciente.setNombre(paciente.getNombre());
+        paciente.setApellido(paciente.getApellido());
+        paciente.setNumeroContacto(paciente.getNumeroContacto());
+        paciente.setEmail(paciente.getEmail());
+
+        pacienteRepository.save(paciente);
+
+
     }
 
     public void  eliminarPaciente(Integer id){
-        pacienteiDao.eliminar(id);
+
+        pacienteRepository.deleteById(id);
     }
 }

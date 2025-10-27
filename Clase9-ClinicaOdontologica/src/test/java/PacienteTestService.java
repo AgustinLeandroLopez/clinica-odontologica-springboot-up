@@ -1,6 +1,6 @@
 import dao.PacienteDAOH2;
-import model.Domicilio;
-import model.Paciente;
+import entity.Domicilio;
+import entity.Paciente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import service.PacienteService;

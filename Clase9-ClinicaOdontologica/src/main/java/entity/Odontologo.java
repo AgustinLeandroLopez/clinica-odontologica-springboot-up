@@ -1,9 +1,22 @@
-package model;
+package entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "odontologos")
+@Getter
+@Setter
 public class Odontologo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String  nombre;
+    @Column
     private String apellido;
+    @Column
     private Integer matricula;
 
     //constructor con id
@@ -21,37 +34,8 @@ public class Odontologo {
         this.matricula = matricula;
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Odontologo() {}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Integer getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Integer matricula) {
-        this.matricula = matricula;
-    }
 
     @Override
     public String toString() {

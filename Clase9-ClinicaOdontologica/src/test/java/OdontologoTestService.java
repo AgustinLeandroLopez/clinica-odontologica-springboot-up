@@ -1,5 +1,5 @@
 import dao.OdontologoDAOH2;
-import model.Odontologo;
+import entity.Odontologo;
 import service.OdontologoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

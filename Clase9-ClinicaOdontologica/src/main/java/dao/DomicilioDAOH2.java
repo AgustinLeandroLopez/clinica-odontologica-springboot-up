@@ -1,6 +1,6 @@
 package dao;
 
-import model.Domicilio;
+import entity.Domicilio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

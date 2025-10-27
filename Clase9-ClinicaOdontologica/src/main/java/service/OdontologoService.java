@@ -1,31 +1,32 @@
 package service;
 
-import dao.iDao;
-import model.Odontologo;
+import entity.Odontologo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import repository.OdontologoRepository;
+
 import java.util.List;
 
+@Service
 public class OdontologoService {
-    private iDao<Odontologo> odontologoiDao;
 
-    //Constructor
-    public OdontologoService(iDao<Odontologo> odontologoiDao) {
-
-        this.odontologoiDao = odontologoiDao;
-    }
+    @Autowired
+    private OdontologoRepository odontologoRepository;
 
     public Odontologo guardarOdontologo(Odontologo odontologo){
-        return odontologoiDao.guardar(odontologo);
-    }
-    public Odontologo buscarOdontologoPorId(Integer id){
 
-        return odontologoiDao.buscar(id);
+        return odontologoRepository.save(odontologo);
     }
-
+    public Odontologo buscarOdontologoPorId(Integer id) {
+        return odontologoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Odontólogo no encontrado con id: " + id));
+    }
     public List<Odontologo> buscarOdontologo() {
-        return odontologoiDao.buscarTodos();
-    }
 
+        return odontologoRepository.findAll();
+    }
     public void eliminarOdontologo(Integer id){
-        odontologoiDao.eliminar(id);
+
+        odontologoRepository.deleteById(id);
     }
 }
