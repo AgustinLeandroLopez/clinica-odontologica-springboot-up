@@ -1,8 +1,12 @@
-package entity;
+package com.ClinicaOdontologica.UP.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "odontologos")
@@ -16,8 +20,11 @@ public class Odontologo {
     private String  nombre;
     @Column
     private String apellido;
-    @Column
+    @Column(unique = true)
     private Integer matricula;
+    @OneToMany(mappedBy = "odontologo", fetch=FetchType.LAZY)
+    @JsonIgnore
+    private Set<Turno> turnos=new HashSet<>();
 
     //constructor con id
     public Odontologo(Integer id, String nombre, String apellido, Integer matricula) {

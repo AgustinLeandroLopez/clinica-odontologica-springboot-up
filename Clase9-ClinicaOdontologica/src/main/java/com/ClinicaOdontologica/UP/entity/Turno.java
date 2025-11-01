@@ -1,4 +1,4 @@
-package entity;
+package com.ClinicaOdontologica.UP.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

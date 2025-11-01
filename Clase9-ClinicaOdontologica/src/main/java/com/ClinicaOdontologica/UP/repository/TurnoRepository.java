@@ -1,6 +1,6 @@
-package repository;
+package com.ClinicaOdontologica.UP.repository;
 
-import entity.Turno;
+import com.ClinicaOdontologica.UP.entity.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

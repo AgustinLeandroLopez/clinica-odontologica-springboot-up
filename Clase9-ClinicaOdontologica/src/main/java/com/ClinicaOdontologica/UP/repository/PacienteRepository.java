@@ -1,6 +1,6 @@
-package repository;
+package com.ClinicaOdontologica.UP.repository;
 
-import entity.Paciente;
+import com.ClinicaOdontologica.UP.entity.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

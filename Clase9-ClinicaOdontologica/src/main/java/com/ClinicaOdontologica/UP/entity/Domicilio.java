@@ -1,4 +1,4 @@
-package entity;
+package com.ClinicaOdontologica.UP.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,5 +38,4 @@ public class Domicilio {
 
     //Constructor vacio para poder reutilizar un Domicilio en mi pruebas guardarPaciente
     public Domicilio() {}
-
 }

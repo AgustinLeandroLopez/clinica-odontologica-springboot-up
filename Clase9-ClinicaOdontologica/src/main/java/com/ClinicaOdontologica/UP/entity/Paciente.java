@@ -1,10 +1,13 @@
-package entity;
+package com.ClinicaOdontologica.UP.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,12 +25,19 @@ public class Paciente {
     private Integer numeroContacto;
     @Column
     private LocalDate fechaIngreso;
-    @OneToOne
-    @JoinColumn
+//    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne (cascade = CascadeType.ALL) // tomó error el LAZY
+    @JoinColumn (name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
     @Column(unique = true)
     private String email;
+    @OneToMany (mappedBy = "paciente", fetch=FetchType.LAZY) //La idea que un paciente pueda tener X turnos
+    @JsonIgnore //Lo ignora en el JSON no lo trasnporta
+    private Set<Turno> turnos = new HashSet<>(); //DATOS UNICOS Y NO DUPLICADOS DIFERENCIA DE LA LISTA
 
+
+    //OneToMany y ManyToMany son LAZY por default
+    //ManyToOne y One to One son EAGER (ansioso) por default
     public Paciente(Integer id, String nombre, String apellido, Integer numeroContacto, LocalDate fechaIngreso, Domicilio domicilio, String email) {
         this.nombre = nombre;
         this.apellido = apellido;

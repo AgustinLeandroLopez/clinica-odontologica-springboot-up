@@ -1,4 +1,4 @@
-package dto;
+package com.ClinicaOdontologica.UP.dto;
 import lombok.Getter;
 import lombok.Setter;
 
