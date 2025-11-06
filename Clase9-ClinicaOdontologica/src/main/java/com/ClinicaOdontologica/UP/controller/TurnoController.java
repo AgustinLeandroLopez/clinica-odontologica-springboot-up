@@ -5,7 +5,6 @@ import com.ClinicaOdontologica.UP.entity.Odontologo;
 import com.ClinicaOdontologica.UP.entity.Paciente;
 import com.ClinicaOdontologica.UP.entity.Turno;
 import com.ClinicaOdontologica.UP.exception.ResourceNotFoundException;
-import com.ClinicaOdontologica.UP.exception.ResourceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,7 @@ import com.ClinicaOdontologica.UP.service.OdontologoService;
 import com.ClinicaOdontologica.UP.service.PacienteService;
 import com.ClinicaOdontologica.UP.service.TurnoService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/turno")
@@ -32,24 +30,19 @@ public class TurnoController {
     }
 
     @PostMapping
-    public ResponseEntity<TurnoDTO> registrarTurno(@RequestBody Turno turno)
-            throws ResourceValidationException, ResourceNotFoundException {
+    public ResponseEntity<Map<String, Object>> registrarTurno(@RequestBody Turno turno)
+            throws ResourceNotFoundException {
 
         // Validar existencia de paciente y odontólogo antes de guardar
-        Optional<Paciente> pacienteBuscado = pacienteService.buscarPacientePorId(turno.getPaciente().getId());
-        Optional<Odontologo> odontologoBuscado = odontologoService.buscarOdontologoPorId(turno.getOdontologo().getId());
-
-        if (pacienteBuscado.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontró el paciente con ID: " + turno.getPaciente().getId());
-        }
-
-        if (odontologoBuscado.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontró el odontólogo con ID: " + turno.getOdontologo().getId());
-        }
+        validarExistenciaDePacienteYOdontologo(turno);
 
         // Registrar turno
         TurnoDTO turnoGuardado = turnoService.guardarTurno(turno);
-        return ResponseEntity.status(HttpStatus.CREATED).body(turnoGuardado);
+        Map<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("mensaje", "Turno registrado correctamente.");
+        respuesta.put("turno", turnoGuardado);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
 
     @GetMapping
@@ -62,4 +55,83 @@ public class TurnoController {
 
         return ResponseEntity.ok(turnos);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarTurno(@PathVariable Integer id)
+            throws ResourceNotFoundException {
+
+        // Verificar si existe antes de eliminar
+        Optional<Turno> turnoBuscado = turnoService.buscarTurnoPorId(id);
+
+        if (turnoBuscado.isPresent()) {
+            turnoService.eliminarTurno(id);
+            return ResponseEntity.ok("Turno eliminado correctamente (id: " + id + ")");
+        } else {
+            throw new ResourceNotFoundException("No se pudo eliminar el turno con id: " + id);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> actualizarTurno(
+            @PathVariable Integer id,
+            @RequestBody Turno turnoActualizar) throws ResourceNotFoundException {
+
+
+        // Buscar el turno existente
+        Optional <Turno> turnoBuscado = turnoService.buscarTurnoPorId(id);
+
+        //Valida si el turno que se quiere actualizar existe el Paciente y Odontologo
+        validarExistenciaDePacienteYOdontologo(turnoActualizar);
+
+        if  (turnoBuscado.isPresent()) {
+            Turno turno = turnoBuscado.get();
+
+            // Guardar copia del anterior (sin modificarlo)
+            Turno turnoAnterior = new Turno();
+            turnoAnterior.setId(turno.getId());
+            turnoAnterior.setPaciente(turno.getPaciente());
+            turnoAnterior.setOdontologo(turno.getOdontologo());
+            turnoAnterior.setFecha(turno.getFecha());
+
+            // Actualizar solo los campos que se permiten
+            turno.setFecha(turnoActualizar.getFecha());
+            turno.setOdontologo(turnoActualizar.getOdontologo());
+
+            // Guardar y obtener el turno creado
+            TurnoDTO turnoGuardado = turnoService.guardarTurno(turno);
+
+            // Armar respuesta ordenada
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("mensaje", "Exitoso - Turno actualizado correctamente - Permite solo fecha y Doctor.");
+            response.put("turnoAnterior", turnoAnterior);
+            response.put("turnoActualizado", turnoGuardado);
+
+            return ResponseEntity.ok(response);
+
+        } else {
+            // Lanzar excepción personalizada si no se encuentra
+            throw new ResourceNotFoundException("Turno no encontrado con id: " + id);
+        }
+    }
+
+
+    private void validarExistenciaDePacienteYOdontologo(Turno turno)
+            throws ResourceNotFoundException {
+
+        Optional<Paciente> pacienteBuscado =
+                pacienteService.buscarPacientePorId(turno.getPaciente().getId());
+        Optional<Odontologo> odontologoBuscado =
+                odontologoService.buscarOdontologoPorId(turno.getOdontologo().getId());
+
+        if (pacienteBuscado.isEmpty()) {
+            throw new ResourceNotFoundException(
+                    "No se encontró el paciente con ID: " + turno.getPaciente().getId());
+        }
+
+        if (odontologoBuscado.isEmpty()) {
+            throw new ResourceNotFoundException(
+                    "No se encontró el odontólogo con ID: " + turno.getOdontologo().getId());
+        }
+    }
+
 }
