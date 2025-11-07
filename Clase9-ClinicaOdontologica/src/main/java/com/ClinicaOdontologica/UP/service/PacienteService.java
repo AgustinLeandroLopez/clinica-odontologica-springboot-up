@@ -73,6 +73,8 @@ public class PacienteService {
         pacienteListaDTO.setId(paciente.getId());
         pacienteListaDTO.setNombre(paciente.getNombre());
         pacienteListaDTO.setApellido(paciente.getApellido());
+        pacienteListaDTO.setNumeroContacto(paciente.getNumeroContacto());
+        pacienteListaDTO.setFechaIngreso(paciente.getFechaIngreso());
         pacienteListaDTO.setEmail(paciente.getEmail());
 
         return pacienteListaDTO;

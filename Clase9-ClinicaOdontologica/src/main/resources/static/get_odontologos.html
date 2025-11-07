@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Odontólogos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">ClínicaOdontológica</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Gestión Pacientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="get_pacientes.html">Listar</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Gestión Odontólogos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="get_odontologos.html">Listar</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Gestión Turnos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="get_turnos.html">Listar</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Odontólogos</h2>
+    <table class="table table-striped table-bordered mt-3">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Matrícula</th>
+        </tr>
+        </thead>
+        <tbody id="odontologoTableBody"></tbody>
+    </table>
+
+    <hr>
+
+    <!-- FORMULARIO DE EDICIÓN -->
+    <div id="div_odontologo_updating" class="col-md-6 mx-auto bg-light border rounded p-3 shadow-sm" style="display: none;">
+        <h5 class="mb-3">Listar Odontologo</h5>
+        <form id="update_odontologo_form">
+            <div class="mb-2">
+                <label>ID:</label>
+                <input type="text" class="form-control" id="odontologo_id" readonly>
+            </div>
+            <div class="mb-2">
+                <label>Nombre:</label>
+                <input type="text" class="form-control" id="odontologo" required>
+            </div>
+            <div class="mb-2">
+                <label>Apellido:</label>
+                <input type="text" class="form-control" id="apellido" required>
+            </div>
+            <div class="mb-2">
+                <label>Matricula:</label>
+                <input type="number" class="form-control" id="matricula" required>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- 🔹 Bootstrap + Scripts -->
+<script src="/js/get_odontologo.js"></script>
+</body>
+</html>
