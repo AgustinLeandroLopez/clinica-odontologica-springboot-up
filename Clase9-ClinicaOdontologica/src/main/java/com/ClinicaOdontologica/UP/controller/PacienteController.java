@@ -122,7 +122,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarPaciente(@PathVariable Integer id)
+    public ResponseEntity<Map<String, Object>>  eliminarPaciente(@PathVariable Integer id)
             throws ResourceNotFoundException {
 
         // Verificar si el paciente existe antes de eliminarlo
@@ -130,9 +130,14 @@ public class PacienteController {
 
         if (pacienteBuscado.isPresent()) {
             pacienteService.eliminarPaciente(id);
-            return ResponseEntity.ok("Paciente eliminado con id: " + id);
+
+            // Armar respuesta ordenada (LinkedHashMap)
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("mensaje", "Exitoso - Paciente eliminado correctamente id " +id);
+
+            return ResponseEntity.ok(response);
         } else {
-            throw new ResourceNotFoundException("No se encontró el paciente con id: " + id);
+            throw new ResourceNotFoundException("No existe el paciente con id " + id + " para eliminar");
         }
     }
 }

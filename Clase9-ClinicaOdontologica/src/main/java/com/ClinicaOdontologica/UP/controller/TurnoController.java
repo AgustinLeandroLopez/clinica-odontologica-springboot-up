@@ -57,7 +57,7 @@ public class TurnoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarTurno(@PathVariable Integer id)
+    public ResponseEntity<Map<String, Object>>  eliminarTurno(@PathVariable Integer id)
             throws ResourceNotFoundException {
 
         // Verificar si existe antes de eliminar
@@ -65,9 +65,14 @@ public class TurnoController {
 
         if (turnoBuscado.isPresent()) {
             turnoService.eliminarTurno(id);
-            return ResponseEntity.ok("Turno eliminado correctamente (id: " + id + ")");
+
+            // Armar respuesta ordenada (LinkedHashMap)
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("mensaje", "Exitoso - Turno eliminado correctamente id " +id);
+
+            return ResponseEntity.ok(response);
         } else {
-            throw new ResourceNotFoundException("No se pudo eliminar el turno con id: " + id);
+            throw new ResourceNotFoundException("No existe el turno con id " + id + " para eliminar");
         }
     }
 

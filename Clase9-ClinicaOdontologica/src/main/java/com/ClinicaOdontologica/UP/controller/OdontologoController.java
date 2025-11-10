@@ -104,7 +104,7 @@ public class OdontologoController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarOdontologo(@PathVariable Integer id)
+    public ResponseEntity<Map<String, Object>> eliminarOdontologo(@PathVariable Integer id)
             throws ResourceNotFoundException {
 
         // Verificar si existe antes de eliminar
@@ -112,9 +112,14 @@ public class OdontologoController {
 
         if (odontologoBuscado.isPresent()) {
             odontologoService.eliminarOdontologo(id);
-            return ResponseEntity.ok("Odontólogo eliminado correctamente (id: " + id + ")");
+
+            // Armar respuesta ordenada (LinkedHashMap)
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("mensaje", "Exitoso - Odontólogo eliminado correctamente id " +id);
+
+            return ResponseEntity.ok(response);
         } else {
-            throw new ResourceNotFoundException("No se pudo eliminar el odontólogo con id: " + id);
+            throw new ResourceNotFoundException("No existe el odontologo con id " + id + " para eliminar");
         }
     }
 
