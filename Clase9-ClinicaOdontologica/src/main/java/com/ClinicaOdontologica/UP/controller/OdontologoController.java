@@ -90,7 +90,7 @@ public class OdontologoController {
 
             // Armar respuesta ordenada
             Map<String, Object> response = new LinkedHashMap<>();
-            response.put("mensaje", "Exitoso - Odontólogo actualizado correctamente - Permite solo nombre y apellido.");
+            response.put("mensaje", "Exitoso - Odontólogo "+id+" actualizado correctamente");
             response.put("odontologoAnterior", odontologoAnterior);
             response.put("odontologoActualizado", odontologoGuardado);
 

@@ -1,6 +1,8 @@
 package com.ClinicaOdontologica.UP.service;
 
+import com.ClinicaOdontologica.UP.dto.PacienteDTO;
 import com.ClinicaOdontologica.UP.dto.TurnoDTO;
+import com.ClinicaOdontologica.UP.entity.Paciente;
 import com.ClinicaOdontologica.UP.entity.Turno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,24 @@ public class TurnoService {
 
     public Optional<Turno> buscarTurnoPorId(Integer id) {
         return turnoRepository.findById(id);
+    }
+
+    // Buscamos turno DTO para devolver en el actualizar
+    public Optional<TurnoDTO> buscarTurnoDTOPorId(Integer id) {
+
+        Optional<Turno> turnoBuscado = turnoRepository.findById(id);
+
+        if (turnoBuscado.isPresent()) {
+            Turno turnoAux = turnoBuscado.get();
+            TurnoDTO turnoDTO = new TurnoDTO();
+
+            turnoDTO.setId(turnoAux.getId());
+            turnoDTO.setFecha(turnoAux.getFecha());
+            turnoDTO.setPacienteId(turnoAux.getPaciente().getId());
+            turnoDTO.setOdontologoId(turnoAux.getOdontologo().getId());
+            return Optional.of(turnoDTO);
+        } else {
+            return Optional.empty();
+        }
     }
 }

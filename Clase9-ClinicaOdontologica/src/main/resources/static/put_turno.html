@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestión de Odontólogos</title>
+    <title>Actualizar Turnos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -13,7 +13,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="/index.html">ClínicaOdontológica</a>
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,7 +28,7 @@
                         <li><a class="dropdown-item" href="/post_paciente.html">Registrar</a></li>
                         <li><a class="dropdown-item" href="/get_pacientes.html">Listar</a></li>
                         <li><a class="dropdown-item" href="/del_paciente.html">Eliminar</a></li>
-                        <li><a class="dropdown-item" href="/put_paciente.html">Actualizar</a></li>
+                        <li><a class="dropdown-item active" href="/put_paciente.html">Actualizar</a></li>
                     </ul>
                 </li>
 
@@ -62,50 +61,60 @@
 
 <!--CONTENIDO PRINCIPAL -->
 <div class="container mt-4">
-    <h2 class="mb-4">Odontólogos</h2>
+    <h2 class="mb-4 text-center">Actualizar Turnos</h2>
 
-    <div class="table-responsive">
-        <table id="odontologoTable" class="table table-hover table-bordered align-middle bg-white">
-            <thead class="table-dark">
+    <!-- Tabla con odontólogos existentes -->
+    <div class="table-responsive mb-4">
+        <table id="turnoTable" class="table table-hover table-bordered align-middle bg-white shadow-sm">
+            <thead class="table-dark text-center">
             <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Matrícula</th>
-        </tr>
-        </thead>
-        <tbody id="odontologoTableBody"></tbody>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>ID Paciente</th>
+                <th>ID Odontólogo</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="turnoTableBody" class="text-center"></tbody>
         </table>
     </div>
 
-    <hr>
+    <!-- Formulario de actualización -->
+    <div id="div_turno_updating" class="col-md-6 mx-auto bg-light border rounded p-4 shadow-sm" style="display: none;">
+        <h5 class="mb-3 text-center">Modificar Turno</h5>
+        <form id="update_turno_form">
+            <div class="mb-3">
+                <label for="turno_id" class="form-label">ID Turno:</label>
+                <input type="text" id="turno_id" class="form-control" readonly>
+            </div>
 
-    <!-- FORMULARIO DE EDICIÓN -->
-    <div id="div_odontologo_updating" class="col-md-6 mx-auto bg-light border rounded p-3 shadow-sm" style="display: none;">
-        <h5 class="mb-3">Listar Odontologo</h5>
-        <form id="update_odontologo_form">
-            <div class="mb-2">
-                <label>ID:</label>
-                <input type="text" class="form-control" id="odontologo_id" readonly>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Nueva Fecha:</label>
+                <input type="date" id="fecha" class="form-control" required>
             </div>
-            <div class="mb-2">
-                <label>Nombre:</label>
-                <input type="text" class="form-control" id="odontologo" required>
+
+            <div class="mb-3">
+                <label for="paciente_id" class="form-label">ID Paciente:</label>
+                <input type="number" id="paciente_id" class="form-control" readonly>
             </div>
-            <div class="mb-2">
-                <label>Apellido:</label>
-                <input type="text" class="form-control" id="apellido" required>
+
+            <div class="mb-3">
+                <label for="odontologo_id" class="form-label">Nuevo ID Odontólogo:</label>
+                <input type="number" id="odontologo_id" class="form-control" required>
             </div>
-            <div class="mb-2">
-                <label>Matricula:</label>
-                <input type="number" class="form-control" id="matricula" required>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success me-2">Actualizar</button>
+                <button type="button" class="btn btn-secondary" id="cancelarEdicion">Cancelar</button>
             </div>
         </form>
     </div>
+
 </div>
 
-<!-- 🔹 Bootstrap + Scripts -->
+<!-- 🔹 Bootstrap + Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/get_odontologo.js"></script>
+<script src="/js/put_turno.js"></script>
 </body>
 </html>
+
