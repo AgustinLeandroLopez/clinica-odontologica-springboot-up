@@ -136,11 +136,11 @@ src
 ✅ **Testing**
 
 * Pruebas manuales vía front + Postman
-* 
+
 * ✅ **Testing Unitarios**
 
 * Pruebas unitarias usando los service de Paciente, Odontologo y Turno
-* 
+ 
 * * ✅ **Testing Integration**
 
 * Pruebas integración usando el CRUD de Turnos
