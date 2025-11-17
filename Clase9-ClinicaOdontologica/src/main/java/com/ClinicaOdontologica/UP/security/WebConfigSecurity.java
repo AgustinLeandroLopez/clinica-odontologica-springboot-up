@@ -2,6 +2,7 @@ package com.ClinicaOdontologica.UP.security;
 
 import com.ClinicaOdontologica.UP.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,12 +32,15 @@ public class WebConfigSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests((authz)-> authz
                         // Recursos estáticos
                         .requestMatchers("/js/**").permitAll()
 
                         // Paginas publicas
                         .requestMatchers("/", "/get_*.html", "/login.html").permitAll()
+                        //Para poder hacer consultas H2
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
 
 
                         //Todos los metodos del CRUD (sin read) debe estar el usuario loggeado

@@ -18,6 +18,12 @@ public class OdontologoService {
 
         return odontologoRepository.save(odontologo);
     }
+
+    public Odontologo actualizarOdontologo(Odontologo odontologo){
+
+        return odontologoRepository.save(odontologo);
+    }
+
     public Optional<Odontologo> buscarOdontologoPorId(Integer id) {
         return odontologoRepository.findById(id);
     }

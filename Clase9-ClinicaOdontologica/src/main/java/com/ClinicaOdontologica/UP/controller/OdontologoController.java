@@ -85,8 +85,8 @@ public class OdontologoController {
             odontologo.setNombre(odontologoActualizar.getNombre());
             odontologo.setApellido(odontologoActualizar.getApellido());
 
-            // Guardar y obtener el odontólogo creado
-            Odontologo odontologoGuardado = odontologoService.guardarOdontologo(odontologo);
+            // Actualizar Odontologo
+            Odontologo odontologoGuardado = odontologoService.actualizarOdontologo(odontologo);
 
             // Armar respuesta ordenada
             Map<String, Object> response = new LinkedHashMap<>();

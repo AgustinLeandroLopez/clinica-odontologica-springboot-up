@@ -115,8 +115,8 @@ public class TurnoController {
             turno.setFecha(turnoActualizarDTO.getFecha());
             turno.setOdontologo(odontologoBuscado.get());
 
-            // Guardar y obtener el turno creado
-            TurnoDTO turnoGuardado = turnoService.guardarTurno(turno);
+            // Actualizar Turno
+            TurnoDTO turnoGuardado = turnoService.actualizarTurno(turno);
 
             // Armar respuesta ordenada
             Map<String, Object> response = new LinkedHashMap<>();

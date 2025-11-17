@@ -105,11 +105,11 @@ public class PacienteController {
             paciente.setEmail(pacienteActualizar.getEmail());
 
             // Guardar y obtener el paciente creado
-            Paciente pacienteGuardado = pacienteService.guardarPaciente(paciente);
+            Paciente pacienteGuardado = pacienteService.actualizarPaciente(paciente);
 
             // Armar respuesta ordenada
             Map<String, Object> response = new LinkedHashMap<>();
-            response.put("mensaje", "Exitoso - Paciente" + id +"actualizado correctamente");
+            response.put("mensaje", "Exitoso - Paciente id " + id +" actualizado correctamente");
             response.put("pacienteAnterior", pacienteAnterior);
             response.put("odontologoActualizado", pacienteGuardado);
 

@@ -1,5 +1,6 @@
 package com.ClinicaOdontologica.UP.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,9 +30,15 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
-    // Cuando ocurre cualquier otro error inesperado
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> tratamientoGeneral(Exception e) {
+    public ResponseEntity<Map<String, Object>> tratamientoGeneral(Exception e, HttpServletRequest request) {
+
+        //SI ES LA CONSOLA H2 → no interceptamos
+        String uri = request.getRequestURI();
+        if (uri.startsWith("/h2")) {
+            throw new RuntimeException(e);  // Spring maneje la excepcion
+        }
+
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("mensaje", "Error interno del servidor: " + e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);

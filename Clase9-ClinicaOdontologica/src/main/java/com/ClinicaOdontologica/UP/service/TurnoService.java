@@ -23,6 +23,12 @@ public class TurnoService {
         return turnoATurnoDTO(turnoGuardado);
     }
 
+    public TurnoDTO actualizarTurno(Turno turno) {
+
+        Turno turnoActualizado= turnoRepository.save(turno);
+        return turnoATurnoDTO(turnoActualizado);
+    }
+
     private TurnoDTO turnoATurnoDTO(Turno turno) {
         TurnoDTO turnoDTO = new TurnoDTO();
         turnoDTO.setId(turno.getId());

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Setter
 
 public class PacienteListaDTO {
-    //DTO para listar datos del paciente
+    //DTO para listar solo datos del paciente sin domicilio
     private Integer id;
     private String nombre;
     private String apellido;

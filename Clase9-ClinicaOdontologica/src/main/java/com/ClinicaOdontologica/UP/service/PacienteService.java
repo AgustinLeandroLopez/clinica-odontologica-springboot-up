@@ -38,9 +38,9 @@ public class PacienteService {
         return pacienteListaDTO;
     }
 
-    public void actualizarPaciente(Paciente paciente){
+    public Paciente actualizarPaciente(Paciente paciente){
 
-        pacienteRepository.save(paciente);
+        return pacienteRepository.save(paciente);
     }
 
     public void  eliminarPaciente(Integer id){
