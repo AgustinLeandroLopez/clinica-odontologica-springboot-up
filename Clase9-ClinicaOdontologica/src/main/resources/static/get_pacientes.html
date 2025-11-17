@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de Pacientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<!--NAVBAR PRINCIPAL -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/index.html">ClínicaOdontológica</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <!--GESTIÓN PACIENTES -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestión Pacientes</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/post_paciente.html">Registrar</a></li>
+                        <li><a class="dropdown-item" href="/get_pacientes.html">Listar</a></li>
+                        <li><a class="dropdown-item" href="/del_paciente.html">Eliminar</a></li>
+                        <li><a class="dropdown-item" href="/put_paciente.html">Actualizar</a></li>
+                    </ul>
+                </li>
+
+                <!--GESTIÓN ODONTÓLOGOS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestión Odontólogos</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/post_odontologo.html">Registrar</a></li>
+                        <li><a class="dropdown-item" href="/get_odontologos.html">Listar</a></li>
+                        <li><a class="dropdown-item" href="/del_odontologo.html">Eliminar</a></li>
+                        <li><a class="dropdown-item" href="/put_odontologo.html">Actualizar</a></li>
+                    </ul>
+                </li>
+
+                <!--GESTIÓN TURNOS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Gestión Turnos</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/post_turno.html">Registrar</a></li>
+                        <li><a class="dropdown-item" href="/get_turnos.html">Listar</a></li>
+                        <li><a class="dropdown-item" href="/del_turno.html">Eliminar</a></li>
+                        <li><a class="dropdown-item" href="/put_turno.html">Actualizar</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--CONTENIDO PRINCIPAL -->
+<div class="container mt-4">
+    <h2 class="mb-4">Pacientes</h2>
+
+    <div class="table-responsive">
+        <table id="pacienteTable" class="table table-hover table-bordered align-middle bg-white">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Numero Contacto</th>
+                <th>Fecha de Ingreso</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody id="pacienteTableBody"></tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <!-- FORMULARIO DE EDICIÓN -->
+    <div id="div_paciente_updating" class="col-md-6 mx-auto bg-light border rounded p-3 shadow-sm" style="display: none;">
+        <h5 class="mb-3">Modificar Paciente</h5>
+        <form id="update_paciente_form">
+            <div class="mb-2">
+                <label>ID:</label>
+                <input type="text" class="form-control" id="paciente_id" readonly>
+            </div>
+            <div class="mb-2">
+                <label>Nombre:</label>
+                <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-2">
+                <label>Apellido:</label>
+                <input type="text" class="form-control" id="apellido" required>
+            </div>
+            <div class="mb-2">
+                <label>Numero Contacto:</label>
+                <input type="number" class="form-control" id="numero" required>
+            </div>
+            <div class="mb-2">
+                <label>Fecha de Ingreso:</label>
+                <input type="date" class="form-control" id="fecha" required>
+            </div>
+            <div class="mb-2">
+                <label>Email:</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 🔹 Bootstrap + Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/get_paciente.js"></script>
+</body>
+</html>
