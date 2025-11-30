@@ -1,6 +1,7 @@
 package com.ClinicaOdontologica.UP.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -60,6 +61,13 @@ public class GlobalException {
         }
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String,Object>> handleBadRequest(BadRequestException e) {
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("mensaje", e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
 }

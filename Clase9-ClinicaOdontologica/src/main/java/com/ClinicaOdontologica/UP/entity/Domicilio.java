@@ -21,6 +21,7 @@ public class Domicilio {
     @Column
     private String provincia;
 
+    //Constructores
     public Domicilio(Integer id, String calle, Integer numero, String localidad, String provincia) {
         this.id = id;
         this.calle = calle;

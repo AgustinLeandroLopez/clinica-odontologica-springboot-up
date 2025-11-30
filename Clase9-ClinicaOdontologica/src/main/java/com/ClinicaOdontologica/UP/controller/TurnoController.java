@@ -6,6 +6,7 @@ import com.ClinicaOdontologica.UP.entity.Odontologo;
 import com.ClinicaOdontologica.UP.entity.Paciente;
 import com.ClinicaOdontologica.UP.entity.Turno;
 import com.ClinicaOdontologica.UP.exception.ResourceNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import com.ClinicaOdontologica.UP.service.OdontologoService;
 import com.ClinicaOdontologica.UP.service.PacienteService;
 import com.ClinicaOdontologica.UP.service.TurnoService;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -32,11 +34,16 @@ public class TurnoController {
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> registrarTurno(@RequestBody Turno turno)
-            throws ResourceNotFoundException {
+            throws ResourceNotFoundException, BadRequestException {
 
         // Validar existencia de paciente y odontólogo antes de guardar
         validarExistenciaDePacienteYOdontologo(turno);
 
+        //Valida si la fecha ingresada es igual o mayor a hoy
+        if (turno.getFecha().isBefore(LocalDate.now())) {
+            throw new BadRequestException(
+                    "La fecha del turno debe ser mayor o igual a hoy: " + turno.getFecha() +" " + LocalDate.now());
+        }
         // Registrar turno
         TurnoDTO turnoGuardado = turnoService.guardarTurno(turno);
         Map<String, Object> respuesta = new LinkedHashMap<>();
@@ -92,8 +99,14 @@ public class TurnoController {
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> actualizarTurno(
             @PathVariable Integer id,
-            @RequestBody TurnoUpdateDTO turnoActualizarDTO) throws ResourceNotFoundException {
+            @RequestBody TurnoUpdateDTO turnoActualizarDTO) throws ResourceNotFoundException, BadRequestException {
 
+
+        //Valida si la fecha ingresada es igual o mayor a hoy
+        if (turnoActualizarDTO.getFecha().isBefore(LocalDate.now())) {
+            throw new BadRequestException(
+                    "La fecha del turno debe ser mayor o igual a hoy: " + turnoActualizarDTO.getFecha() +" " + LocalDate.now());
+        }
 
         // Buscar el turno existente
         Optional <Turno> turnoBuscado = turnoService.buscarTurnoPorId(id);
